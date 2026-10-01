@@ -1,0 +1,20 @@
+# Redis za spremanje razgovora web chata.
+#
+#   docker compose up -d      pokreni (radi u pozadini, pali se i nakon restarta Dockera)
+#   docker compose down       ugasi
+#
+# U .env postavite REDIS_URL=redis://localhost:6379/0
+services:
+  redis:
+    image: redis:7-alpine
+    container_name: bankbot-redis
+    ports:
+      - "127.0.0.1:6379:6379"  # dostupno samo s ovog računala
+    # appendonly: Redis zapisuje promjene na disk, pa razgovori prežive i restart Redisa
+    command: ["redis-server", "--appendonly", "yes"]
+    volumes:
+      - redis-data:/data
+    restart: unless-stopped
+
+volumes:
+  redis-data:

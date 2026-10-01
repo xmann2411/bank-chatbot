@@ -1,0 +1,46 @@
+{
+  "banka": "Banka Demo d.d.",
+  "valuta": "EUR",
+  "vrijedi_od": "2026-09-01",
+  "napomena": "Sve kamatne stope su fiksne, nominalne, godišnje, u postocima. Stopa ovisi o vrsti kredita, državljanstvu klijenta, roku otplate i iznosu kredita.",
+  "proizvodi": {
+    "gotovinski": {
+      "naziv": {"hr": "gotovinski nenamjenski kredit", "en": "cash loan"},
+      "min_iznos": 1000,
+      "max_iznos": 40000,
+      "min_rok_mjeseci": 12,
+      "max_rok_mjeseci": 120,
+      "dostupno_za": ["drzavljanin", "nedrzavljanin"],
+      "stope": [
+        {"klijent": "drzavljanin",   "rok_do_mjeseci": 36,  "iznos_do": 10000, "stopa": 6.49},
+        {"klijent": "drzavljanin",   "rok_do_mjeseci": 36,  "iznos_do": 40000, "stopa": 5.99},
+        {"klijent": "drzavljanin",   "rok_do_mjeseci": 84,  "iznos_do": 10000, "stopa": 6.79},
+        {"klijent": "drzavljanin",   "rok_do_mjeseci": 84,  "iznos_do": 40000, "stopa": 6.29},
+        {"klijent": "drzavljanin",   "rok_do_mjeseci": 120, "iznos_do": 10000, "stopa": 7.19},
+        {"klijent": "drzavljanin",   "rok_do_mjeseci": 120, "iznos_do": 40000, "stopa": 6.69},
+        {"klijent": "nedrzavljanin", "rok_do_mjeseci": 36,  "iznos_do": 10000, "stopa": 7.69},
+        {"klijent": "nedrzavljanin", "rok_do_mjeseci": 36,  "iznos_do": 40000, "stopa": 7.19},
+        {"klijent": "nedrzavljanin", "rok_do_mjeseci": 84,  "iznos_do": 10000, "stopa": 7.99},
+        {"klijent": "nedrzavljanin", "rok_do_mjeseci": 84,  "iznos_do": 40000, "stopa": 7.49},
+        {"klijent": "nedrzavljanin", "rok_do_mjeseci": 120, "iznos_do": 10000, "stopa": 8.39},
+        {"klijent": "nedrzavljanin", "rok_do_mjeseci": 120, "iznos_do": 40000, "stopa": 7.89}
+      ]
+    },
+    "stambeni": {
+      "naziv": {"hr": "stambeni kredit", "en": "housing loan"},
+      "min_iznos": 20000,
+      "max_iznos": 400000,
+      "min_rok_mjeseci": 60,
+      "max_rok_mjeseci": 360,
+      "dostupno_za": ["drzavljanin"],
+      "stope": [
+        {"klijent": "drzavljanin", "rok_do_mjeseci": 180, "iznos_do": 100000, "stopa": 3.69},
+        {"klijent": "drzavljanin", "rok_do_mjeseci": 180, "iznos_do": 400000, "stopa": 3.49},
+        {"klijent": "drzavljanin", "rok_do_mjeseci": 300, "iznos_do": 100000, "stopa": 3.89},
+        {"klijent": "drzavljanin", "rok_do_mjeseci": 300, "iznos_do": 400000, "stopa": 3.69},
+        {"klijent": "drzavljanin", "rok_do_mjeseci": 360, "iznos_do": 100000, "stopa": 4.09},
+        {"klijent": "drzavljanin", "rok_do_mjeseci": 360, "iznos_do": 400000, "stopa": 3.89}
+      ]
+    }
+  }
+}

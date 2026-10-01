@@ -1,0 +1,8 @@
+[
+  {
+    "name": "banka-demo",
+    "url": "data/raw/web/index.html",
+    "crawl": true,
+    "max_pages": 30
+  }
+]
