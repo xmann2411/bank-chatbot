@@ -1,6 +1,7 @@
 """Spremanje razgovora: serijalizacija i oba spremišta (Redis preko fakeredis, bez pravog servera)."""
 
 import json
+import os
 import unittest
 from unittest import mock
 
@@ -97,6 +98,26 @@ class RedisStoreTest(StoreContract, unittest.TestCase):
         store.save(state)
         again = RedisSessionStore(self.client)
         self.assertEqual(again.load(state.session_id).awaiting, "amount")
+
+
+REDIS_TEST_URL = os.getenv("REDIS_TEST_URL", "")
+
+
+@unittest.skipUnless(REDIS_TEST_URL, "REDIS_TEST_URL nije postavljen (u CI-ju se testira s pravim Redisom)")
+class RealRedisStoreTest(StoreContract, unittest.TestCase):
+    """Isti testovi protiv pravog Redisa. Koristite zasebnu bazu, npr. redis://localhost:6379/15."""
+
+    def make(self, ttl=60):
+        store = RedisSessionStore.from_url(REDIS_TEST_URL, ttl=ttl)
+        self.addCleanup(lambda: [store.r.delete(k) for k in store.r.scan_iter(RedisSessionStore.PREFIX + "*")])
+        return store
+
+    def test_survives_new_store_instance(self):
+        store = self.make()
+        state = store.create("hr")
+        state.awaiting = "amount"
+        store.save(state)
+        self.assertEqual(RedisSessionStore.from_url(REDIS_TEST_URL).load(state.session_id).awaiting, "amount")
 
 
 class MakeStoreTest(unittest.TestCase):

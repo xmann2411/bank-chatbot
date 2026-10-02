@@ -1,0 +1,57 @@
+name: Testovi
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:  # ručno pokretanje iz kartice Actions
+
+concurrency:
+  # Novi push na istu granu otkazuje stari, još nedovršeni run.
+  group: tests-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  test:
+    name: Python ${{ matrix.python }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    strategy:
+      fail-fast: false
+      matrix:
+        python: ["3.12", "3.14"]
+
+    services:
+      # Pravi Redis za testove spremanja sesija (tests/test_sessions.py, RealRedisStoreTest).
+      redis:
+        image: redis:7-alpine
+        ports:
+          - 6379:6379
+        options: >-
+          --health-cmd "redis-cli ping"
+          --health-interval 5s
+          --health-timeout 3s
+          --health-retries 10
+
+    env:
+      PYTHONIOENCODING: utf-8
+      REDIS_TEST_URL: redis://localhost:6379/15
+      # Testovi uvijek rade u simuliranom modu, bez API ključa.
+      ANTHROPIC_API_KEY: ""
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python }}
+          cache: pip
+          cache-dependency-path: requirements.txt
+
+      - name: Instaliraj pakete
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Unit testovi i testni razgovori
+        run: python -m unittest -v

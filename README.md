@@ -1,5 +1,7 @@
 # Banka Demo – chatbot
 
+[![Testovi](https://github.com/xmann2411/bank-chatbot/actions/workflows/tests.yml/badge.svg)](https://github.com/xmann2411/bank-chatbot/actions/workflows/tests.yml)
+
 Chatbot za izmišljenu banku "Banka Demo d.d.". Zna tri stvari:
 
 1. **odgovoriti na pitanja o banci** – iz dokumentacije (PDF, Word, web stranice)
@@ -189,6 +191,10 @@ tests/                     testovi
 ```bash
 python -m unittest
 ```
+
+### GitHub Actions
+
+Na svaki push i pull request [workflow](.github/workflows/tests.yml) pokrene sve testove na Ubuntu s Pythonom 3.12 i 3.14. Uz testove se diže i pravi Redis, pa se spremanje sesija testira i protiv njega (`RealRedisStoreTest`), a ne samo protiv fakeredisa. Lokalno se to uključuje s `REDIS_TEST_URL=redis://localhost:6379/15`; baza 15 je odvojena od pravih razgovora. Rezultati su u kartici **Actions** na GitHubu, a run se može pokrenuti i ručno (**Run workflow**).
 
 ### Testni razgovori
 
