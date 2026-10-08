@@ -186,7 +186,7 @@ def build_index():
         chunks.extend(chunk_markdown(path.read_text(encoding="utf-8"), path.name))
     for i, c in enumerate(chunks):
         c["id"] = i
-    INDEX_FILE.write_text(json.dumps(chunks, ensure_ascii=False, indent=1), encoding="utf-8")
+    INDEX_FILE.write_text(json.dumps(chunks, ensure_ascii=False, indent=1), encoding="utf-8", newline="\n")
     return chunks
 
 

@@ -200,15 +200,23 @@ FAQ = (
 # ---------------------------------------------------------------------------
 
 
-FONT_CANDIDATES = [Path(r"C:\Windows\Fonts\arial.ttf"), Path("/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf"),
-                   Path("/Library/Fonts/Arial Unicode.ttf")]
+# TTF font s hrvatskim slovima: Windows, Linux (paket fonts-dejavu-core), macOS
+FONT_CANDIDATES = [
+    Path(r"C:\Windows\Fonts\arial.ttf"),
+    Path("/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf"),
+    Path("/System/Library/Fonts/Supplemental/Arial.ttf"),
+    Path("/Library/Fonts/Arial Unicode.ttf"),
+]
 
 
 def _font():
     for p in FONT_CANDIDATES:
         if p.exists():
             return p
-    raise SystemExit("Nije pronađen TTF font s hrvatskim slovima (npr. Arial).")
+    raise SystemExit(
+        "Nije pronađen TTF font s hrvatskim slovima. Na Linuxu instalirajte fonts-dejavu-core "
+        "(npr. sudo apt install fonts-dejavu-core) ili dodajte putanju fonta u FONT_CANDIDATES."
+    )
 
 
 def write_pdf(doc, path):

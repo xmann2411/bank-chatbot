@@ -532,7 +532,7 @@ def build():
             title=page["title"], description=page["description"], logo=LOGO, nav=nav, hero=page["hero"], body=page["body"],
             extra_head=page.get("extra_head", ""),
         )
-        (WEB_DIR / filename).write_text(html, encoding="utf-8")
+        (WEB_DIR / filename).write_text(html, encoding="utf-8", newline="\n")
         print("  zapisano:", filename)
 
 

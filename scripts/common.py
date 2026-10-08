@@ -19,5 +19,6 @@ def write_markdown(name, title, source, kind, body):
     body = re.sub(r"\n{3,}", "\n\n", body).strip()
     header = f"---\nnaslov: {title}\nizvor: {source}\ntip: {kind}\nobradeno: {date.today().isoformat()}\n---\n\n"
     path = KNOWLEDGE_DIR / f"{slugify(name)}.md"
-    path.write_text(header + body + "\n", encoding="utf-8")
+    # newline="\n": isti kraj redaka na Windowsima i Linuxu, pa git ne javlja lažne izmjene
+    path.write_text(header + body + "\n", encoding="utf-8", newline="\n")
     return path
